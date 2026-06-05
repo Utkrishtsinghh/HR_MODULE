@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Invite & Signup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="auth-shell">
+      <div class="auth-card">
+        <h1>Invite & Signup</h1>
+        <p class="note">Admins can invite teammates. Invite link pre-fills below.</p>
+        <form id="invite-form">
+          <label>Email</label>
+          <input name="inviteEmail" type="email" required />
+          <button type="submit">Send Invite</button>
+          <div class="status" id="invite-result">Waiting for invite.</div>
+        </form>
+
+        <form id="signup-form">
+          <label>Invite Token</label>
+          <input name="inviteToken" type="text" required />
+          <label>Email</label>
+          <input name="email" type="email" required />
+          <label>Password</label>
+          <input name="password" type="password" required />
+          <label>Full Name</label>
+          <input name="fullName" type="text" />
+          <button type="submit">Create Account</button>
+          <div class="status" id="signup-result">Waiting for signup.</div>
+        </form>
+
+        <div class="link-row">
+          <a href="/login.html">Already have access? Login</a>
+          <a href="/">Back to Dashboard</a>
+        </div>
+      </div>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>

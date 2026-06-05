@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="refresh" content="0; url=/login.html">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UTK AI HR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">UTK <span>AI HR</span></div>
+        <nav class="nav">
+          <a href="/">Dashboard</a>
+          <a href="/signup.html">Invite & Signup</a>
+          <a href="/login.html">Login</a>
+          <a href="/jobs.html">Jobs</a>
+          <a href="/resumes.html">Resumes</a>
+          <a href="/video.html">Video Invites</a>
+          <a href="/onboarding.html">Onboarding</a>
+        </nav>
+        <div class="sidebar-footer">Keka-inspired HR workspace</div>
+      </aside>
+      <div class="main">
+        <div class="topbar">
+          <h1>Dashboard</h1>
+          <div>
+            <button id="logout-btn" class="secondary">Logout</button>
+          </div>
+        </div>
+        <main class="content">
+          <div class="grid">
+            <section class="card">
+              <h2>Invite Users</h2>
+              <p class="note">Send a secure signup link to HR stakeholders.</p>
+              <a href="/signup.html"><button>Send Invite</button></a>
+            </section>
+            <section class="card">
+              <h2>Create Job</h2>
+              <p class="note">Gemini generates ATS tags from your JD.</p>
+              <a href="/jobs.html"><button>Create Job</button></a>
+            </section>
+            <section class="card">
+              <h2>Upload Resumes</h2>
+              <p class="note">Parse PDF/DOCX and prepare for screening.</p>
+              <a href="/resumes.html"><button>Upload Files</button></a>
+            </section>
+            <section class="card">
+              <h2>Video Invites</h2>
+              <p class="note">Send interview links to candidates.</p>
+              <a href="/video.html"><button>Send Invite</button></a>
+            </section>
+          </div>
+          <section class="card">
+            <h2>Quick Status</h2>
+            <p class="note">Use the API with real data. Check the backend health before demo.</p>
+            <div class="status" id="logout-result">Ready.</div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>

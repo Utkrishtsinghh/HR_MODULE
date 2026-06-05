@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Video Invites</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">UTK <span>AI HR</span></div>
+        <nav class="nav">
+          <a href="/">Dashboard</a>
+          <a href="/signup.html">Invite & Signup</a>
+          <a href="/login.html">Login</a>
+          <a href="/jobs.html">Jobs</a>
+          <a href="/resumes.html">Resumes</a>
+          <a href="/video.html">Video Invites</a>
+          <a href="/onboarding.html">Onboarding</a>
+        </nav>
+        <div class="sidebar-footer">Interview scheduling</div>
+      </aside>
+      <div class="main">
+        <div class="topbar">
+          <h1>Video Invites</h1>
+          <button id="logout-btn" class="secondary">Logout</button>
+        </div>
+        <main class="content">
+          <section class="card">
+            <h2>Send Invite</h2>
+            <form id="video-form">
+              <label>Job</label>
+              <select name="jobId" class="job-select" required></select>
+              <label>Candidate Email</label>
+              <input name="candidateEmail" type="email" required />
+              <label>Scheduled At (optional)</label>
+              <input name="scheduledAt" type="datetime-local" />
+              <button type="submit">Send Invite</button>
+              <div class="status" id="video-result">Waiting to send invite.</div>
+            </form>
+          </section>
+
+          <section class="card">
+            <h2>Jobs</h2>
+            <div class="link-row">
+              <button id="refresh-jobs" class="secondary">Refresh Jobs</button>
+            </div>
+            <div class="status" id="jobs-select-status">Load jobs to continue.</div>
+          </section>
+
+          <div class="status" id="logout-result">Ready.</div>
+        </main>
+      </div>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>

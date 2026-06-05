@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Resumes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">UTK <span>AI HR</span></div>
+        <nav class="nav">
+          <a href="/">Dashboard</a>
+          <a href="/signup.html">Invite & Signup</a>
+          <a href="/login.html">Login</a>
+          <a href="/jobs.html">Jobs</a>
+          <a href="/resumes.html">Resumes</a>
+          <a href="/video.html">Video Invites</a>
+          <a href="/onboarding.html">Onboarding</a>
+        </nav>
+        <div class="sidebar-footer">Bulk resume pipeline</div>
+      </aside>
+      <div class="main">
+        <div class="topbar">
+          <h1>Resumes</h1>
+          <button id="logout-btn" class="secondary">Logout</button>
+        </div>
+        <main class="content">
+          <section class="card">
+            <h2>Select Job</h2>
+            <div class="link-row">
+              <button id="refresh-jobs" class="secondary">Refresh Jobs</button>
+            </div>
+            <div class="status" id="jobs-select-status">Load jobs to continue.</div>
+          </section>
+
+          <section class="card">
+            <h2>Upload Resumes</h2>
+            <form id="resume-form">
+              <label>Job</label>
+              <select name="jobId" class="job-select" required></select>
+              <label>PDF / DOCX Files</label>
+              <input name="resumes" type="file" multiple accept=".pdf,.doc,.docx" required />
+              <button type="submit">Upload</button>
+              <div class="status" id="resume-result">Waiting for upload.</div>
+            </form>
+          </section>
+
+          <section class="card">
+            <h2>Run ATS Screening</h2>
+            <label>Job</label>
+            <select id="screen-job-id" class="job-select"></select>
+            <div class="link-row">
+              <button id="screen-resumes">Score Resumes</button>
+            </div>
+            <div class="status" id="screen-result">Waiting for screening.</div>
+          </section>
+
+          <section class="card">
+            <h2>View Scores</h2>
+            <label>Job</label>
+            <select id="resumes-job-id" class="job-select"></select>
+            <div class="link-row">
+              <button id="load-resumes" class="secondary">Load Resumes</button>
+            </div>
+            <div class="link-row">
+              <label>Shortlist Threshold</label>
+              <input id="shortlist-threshold" type="number" min="0" max="100" value="70" />
+              <button id="build-shortlist" class="secondary">Build Shortlist</button>
+            </div>
+            <div class="table-wrap">
+              <table class="table" id="resumes-table">
+                <thead>
+                  <tr>
+                    <th>Candidate</th>
+                    <th>Status</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="3">No data loaded.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h3>Shortlist</h3>
+            <div class="table-wrap">
+              <table class="table" id="shortlist-table">
+                <thead>
+                  <tr>
+                    <th>Candidate</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="2">No data loaded.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <div class="status" id="logout-result">Ready.</div>
+        </main>
+      </div>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>

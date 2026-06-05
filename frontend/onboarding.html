@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Onboarding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">UTK <span>AI HR</span></div>
+        <nav class="nav">
+          <a href="/">Dashboard</a>
+          <a href="/signup.html">Invite & Signup</a>
+          <a href="/login.html">Login</a>
+          <a href="/jobs.html">Jobs</a>
+          <a href="/resumes.html">Resumes</a>
+          <a href="/video.html">Video Invites</a>
+          <a href="/onboarding.html">Onboarding</a>
+        </nav>
+        <div class="sidebar-footer">Team onboarding</div>
+      </aside>
+      <div class="main">
+        <div class="topbar">
+          <h1>Onboarding</h1>
+          <button id="logout-btn" class="secondary">Logout</button>
+        </div>
+        <main class="content">
+          <section class="card">
+            <h2>Onboarding Details</h2>
+            <form id="onboarding-form">
+              <label>Organization</label>
+              <input name="organization" type="text" />
+              <label>Notes</label>
+              <textarea name="notes" rows="4"></textarea>
+              <button type="submit">Save Onboarding</button>
+              <div class="status" id="onboarding-result">Waiting for onboarding.</div>
+            </form>
+          </section>
+
+          <section class="card">
+            <h2>Onboarded Users</h2>
+            <div class="link-row">
+              <button id="load-onboarded" class="secondary">Load Users</button>
+            </div>
+            <pre id="onboarded-output">No data loaded.</pre>
+          </section>
+
+          <div class="status" id="logout-result">Ready.</div>
+         </main>
+       </div>
+     </div>
+     <script src="/app.js"></script>
+   </body>
+ </html>
