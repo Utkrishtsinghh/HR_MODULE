@@ -73,6 +73,7 @@ class Resume(Base):
     __tablename__ = "resumes"
 
     id = Column(Integer, primary_key=True, index=True)
+
     job_id = Column(Integer, ForeignKey("jobs.id"), nullable=False)
 
     file_name = Column(String, nullable=False)
@@ -93,7 +94,7 @@ class Resume(Base):
     updated_at = Column(DateTime, default=utcnow, onupdate=utcnow)
 
     job = relationship("Job", back_populates="resumes")
-
+    
 class VideoInvite(Base):
     __tablename__ = "video_invites"
 
@@ -103,4 +104,28 @@ class VideoInvite(Base):
     meet_link = Column(String, nullable=False)
     scheduled_at = Column(DateTime, nullable=True)
     created_by = Column(Integer, ForeignKey("users.id"), nullable=False)
+    created_at = Column(DateTime, default=utcnow)
+
+class OnboardingDocument(Base):
+    __tablename__ = "onboarding_documents"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    user_id = Column(Integer, ForeignKey("users.id"))
+
+    aadhar_number = Column(String, nullable=True)
+    pan_number = Column(String, nullable=True)
+
+    aadhar_file = Column(String, nullable=True)
+    pan_file = Column(String, nullable=True)
+
+    marksheet_10_file = Column(String, nullable=True)
+    marksheet_12_file = Column(String, nullable=True)
+
+    aadhar_verified = Column(Boolean, default=False)
+    pan_verified = Column(Boolean, default=False)
+
+    marksheet_10_verified = Column(Boolean, default=False)
+    marksheet_12_verified = Column(Boolean, default=False)
+
     created_at = Column(DateTime, default=utcnow)

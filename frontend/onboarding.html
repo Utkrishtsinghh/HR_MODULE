@@ -1,59 +1,199 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Onboarding</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <div class="app-shell">
-      <aside class="sidebar">
-        <div class="brand">UTK <span>AI HR</span></div>
-        <nav class="nav">
-          <a href="/">Dashboard</a>
-          <a href="/signup.html">Invite & Signup</a>
-          <a href="/login.html">Login</a>
-          <a href="/jobs.html">Jobs</a>
-          <a href="/resumes.html">Resumes</a>
-          <a href="/video.html">Video Invites</a>
-          <a href="/onboarding.html">Onboarding</a>
-        </nav>
-        <div class="sidebar-footer">Team onboarding</div>
-      </aside>
-      <div class="main">
-        <div class="topbar">
-          <h1>Onboarding</h1>
-          <button id="logout-btn" class="secondary">Logout</button>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Employee Onboarding</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+
+<div class="app-shell">
+
+  <aside class="sidebar">
+
+    <div class="brand">
+      UTK <span>AI HR</span>
+    </div>
+
+    <nav class="nav">
+      <a href="/">Dashboard</a>
+      <a href="/signup.html">Invite & Signup</a>
+      <a href="/login.html">Login</a>
+      <a href="/jobs.html">Jobs</a>
+      <a href="/resumes.html">Resumes</a>
+      <a href="/video.html">Video Invites</a>
+      <a href="/onboarding.html">Onboarding</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      Employee Verification Portal
+    </div>
+
+  </aside>
+
+  <div class="main">
+
+    <div class="topbar">
+      <h1>Employee Onboarding</h1>
+
+      <button
+        id="logout-btn"
+        class="secondary">
+        Logout
+      </button>
+    </div>
+
+    <main class="content">
+
+      <section class="card">
+
+        <h2>Document Verification</h2>
+
+        <p>
+          Upload employee documents for onboarding verification.
+        </p>
+
+        <form id="document-form">
+
+          <label>Aadhaar Number</label>
+          <input
+            id="aadhar-number"
+            type="text"
+            placeholder="123456789012"
+          />
+
+          <label>Upload Aadhaar Card</label>
+          <input
+            id="aadhar-file"
+            type="file"
+          />
+
+          <label>PAN Number</label>
+          <input
+            id="pan-number"
+            type="text"
+            placeholder="ABCDE1234F"
+          />
+
+          <label>Upload PAN Card</label>
+          <input
+            id="pan-file"
+            type="file"
+          />
+
+          <label>Upload 10th Marksheet</label>
+          <input
+            id="marksheet10-file"
+            type="file"
+          />
+
+          <label>Upload 12th Marksheet</label>
+          <input
+            id="marksheet12-file"
+            type="file"
+          />
+
+          <div
+            style="
+            margin-top:20px;
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+          ">
+
+            <button
+              type="button"
+              id="verify-documents">
+
+              Verify Documents
+
+            </button>
+
+            <button
+              type="button"
+              id="generate-lor"
+              class="secondary">
+
+              Generate Recommendation Letter
+
+            </button>
+
+          </div>
+
+          <div
+            class="status"
+            id="document-status">
+
+            Waiting for document verification...
+
+          </div>
+
+        </form>
+
+      </section>
+
+      <section class="card">
+
+        <h2>Verification Status</h2>
+
+        <div
+          id="verification-output"
+          class="status">
+
+          No verification performed.
+
         </div>
-        <main class="content">
-          <section class="card">
-            <h2>Onboarding Details</h2>
-            <form id="onboarding-form">
-              <label>Organization</label>
-              <input name="organization" type="text" />
-              <label>Notes</label>
-              <textarea name="notes" rows="4"></textarea>
-              <button type="submit">Save Onboarding</button>
-              <div class="status" id="onboarding-result">Waiting for onboarding.</div>
-            </form>
-          </section>
 
-          <section class="card">
-            <h2>Onboarded Users</h2>
-            <div class="link-row">
-              <button id="load-onboarded" class="secondary">Load Users</button>
-            </div>
-            <pre id="onboarded-output">No data loaded.</pre>
-          </section>
+      </section>
 
-          <div class="status" id="logout-result">Ready.</div>
-         </main>
-       </div>
-     </div>
-     <script src="/app.js"></script>
-   </body>
- </html>
+      <section class="card">
+
+        <h2>Onboarded Employees</h2>
+
+        <div class="link-row">
+
+          <button
+            id="load-onboarded"
+            class="secondary">
+
+            Load Employees
+
+          </button>
+
+        </div>
+
+        <pre id="onboarded-output">
+No data loaded.
+        </pre>
+
+      </section>
+
+      <div
+        class="status"
+        id="logout-result">
+
+        Ready.
+
+      </div>
+
+    </main>
+
+  </div>
+
+</div>
+
+<script src="/app.js"></script>
+
+</body>
+</html>

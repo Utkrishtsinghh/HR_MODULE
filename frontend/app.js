@@ -22,7 +22,7 @@ function getToken() {
   return localStorage.getItem("token");
 }
 
-function authHeaders() {
+const authHeaders = () => {
   const token = getToken();
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
@@ -172,7 +172,7 @@ if (signupForm) {
       });
       setToken(data.access_token);
       setStatus(result, "Login complete.");
-      
+
       setTimeout(() => {
         window.location.href = "/jobs.html";
       }, 1000);
@@ -181,45 +181,29 @@ if (signupForm) {
     }
   });
 }
-const loginForm = document.getElementById("login-form");
 
+const loginForm = document.getElementById("login-form");
 if (loginForm) {
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-
     const payload = {
       email: loginForm.email.value,
       password: loginForm.password.value,
     };
-
     const result = document.getElementById("login-result");
-
     try {
       const data = await apiRequest("/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
       setToken(data.access_token);
-
-      setStatus(
-        result,
-        "Login successful. Redirecting..."
-      );
-
+      setStatus(result, "Login successful. Redirecting...");
       setTimeout(() => {
         window.location.href = "/jobs.html";
       }, 1000);
-
     } catch (err) {
-      setStatus(
-        result,
-        err.message,
-        false
-      );
+      setStatus(result, err.message, false);
     }
   });
 }
@@ -240,7 +224,6 @@ if (jobForm) {
         body: JSON.stringify(payload),
       });
       setStatus(result, `Job created: ${data.title}`);
-      
       setTimeout(() => {
         window.location.href = "/resumes.html";
       }, 1000);
@@ -255,9 +238,7 @@ if (loadJobs) {
   loadJobs.addEventListener("click", async () => {
     const output = document.getElementById("jobs-output");
     try {
-      const data = await apiRequest("/jobs", {
-        headers: { ...authHeaders() },
-      });
+      const data = await apiRequest("/jobs", { headers: { ...authHeaders() } });
       output.textContent = JSON.stringify(data, null, 2);
     } catch (err) {
       output.textContent = err.message;
@@ -292,9 +273,7 @@ if (onboardedBtn) {
   onboardedBtn.addEventListener("click", async () => {
     const output = document.getElementById("onboarded-output");
     try {
-      const data = await apiRequest("/users/onboarded", {
-        headers: { ...authHeaders() },
-      });
+      const data = await apiRequest("/users/onboarded", { headers: { ...authHeaders() } });
       output.textContent = JSON.stringify(data, null, 2);
     } catch (err) {
       output.textContent = err.message;
@@ -313,12 +292,10 @@ if (resumeForm) {
       setStatus(result, "Select a job and upload files.", false);
       return;
     }
-
     const formData = new FormData();
     for (const file of files) {
       formData.append("files", file);
     }
-
     try {
       const data = await apiRequest(`/jobs/${jobId}/resumes/bulk`, {
         method: "POST",
@@ -357,13 +334,9 @@ const loadResumesBtn = document.getElementById("load-resumes");
 if (loadResumesBtn) {
   loadResumesBtn.addEventListener("click", async () => {
     const jobId = document.getElementById("resumes-job-id").value;
-    if (!jobId) {
-      return;
-    }
+    if (!jobId) return;
     try {
-      const data = await apiRequest(`/jobs/${jobId}/resumes`, {
-        headers: { ...authHeaders() },
-      });
+      const data = await apiRequest(`/jobs/${jobId}/resumes`, { headers: { ...authHeaders() } });
       lastResumes = data;
       renderResumesTable(data);
       const thresholdInput = document.getElementById("shortlist-threshold");
@@ -371,63 +344,28 @@ if (loadResumesBtn) {
       renderShortlist(data, threshold);
     } catch (err) {
       const status = document.getElementById("screen-result");
-      if (status) {
-        setStatus(status, err.message, false);
-      }
+      if (status) setStatus(status, err.message, false);
     }
   });
 }
 
 const buildShortlistBtn = document.getElementById("build-shortlist");
-
 if (buildShortlistBtn) {
   buildShortlistBtn.addEventListener("click", () => {
-
-    const thresholdInput =
-      document.getElementById("shortlist-threshold");
-
-    const threshold =
-      thresholdInput
-        ? Number(thresholdInput.value || 0)
-        : 0;
-
-    const shortlisted =
-      lastResumes.filter(
-        resume => (resume.score || 0) >= threshold
-      );
-
+    const thresholdInput = document.getElementById("shortlist-threshold");
+    const threshold = thresholdInput ? Number(thresholdInput.value || 0) : 0;
+    const shortlisted = lastResumes.filter(resume => (resume.score || 0) >= threshold);
     renderShortlist(lastResumes, threshold);
-
-    localStorage.setItem(
-      "shortlistedCandidates",
-      JSON.stringify(shortlisted)
-    );
-
-    const jobId =
-      document.getElementById("resumes-job-id").value;
-
-    localStorage.setItem(
-      "currentJobId",
-      jobId
-    );
-
-if (shortlisted.length === 0) {
-
-  alert(
-    "No candidates met the shortlist threshold."
-  );
-
-  return;
-}
-
-    const uniqueCandidates =
-      [...new Set(shortlisted.map(r => r.file_name))];
-    
-    alert(
-      `${uniqueCandidates.length} unique candidate(s) shortlisted.`
-    );
-  
-  window.location.href = "/video.html";
+    localStorage.setItem("shortlistedCandidates", JSON.stringify(shortlisted));
+    const jobId = document.getElementById("resumes-job-id").value;
+    localStorage.setItem("currentJobId", jobId);
+    if (shortlisted.length === 0) {
+      alert("No candidates met the shortlist threshold.");
+      return;
+    }
+    const uniqueCandidates = [...new Set(shortlisted.map(r => r.file_name))];
+    alert(`${uniqueCandidates.length} unique candidate(s) shortlisted.`);
+    window.location.href = "/video.html";
   });
 }
 
@@ -459,10 +397,7 @@ if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     const result = document.getElementById("logout-result");
     try {
-      await apiRequest("/auth/logout", {
-        method: "POST",
-        headers: { ...authHeaders() },
-      });
+      await apiRequest("/auth/logout", { method: "POST", headers: { ...authHeaders() } });
     } catch (err) {
       setStatus(result, err.message, false);
     }
@@ -479,3 +414,195 @@ if (refreshJobsBtn) {
 }
 
 loadJobsOptions();
+
+const shortlistedTable = document.getElementById("shortlisted-table");
+if (shortlistedTable) {
+  const shortlisted = JSON.parse(localStorage.getItem("shortlistedCandidates") || "[]");
+  shortlistedTable.innerHTML = "";
+  if (!shortlisted.length) {
+    shortlistedTable.innerHTML = `<tr><td colspan="4">No shortlisted candidates found.</td></tr>`;
+  } else {
+    shortlisted.forEach(candidate => {
+      shortlistedTable.innerHTML += `
+        <tr>
+          <td>${candidate.file_name}</td>
+          <td>${candidate.candidate_email || "No Email"}</td>
+          <td>${candidate.score}</td>
+          <td>Shortlisted</td>
+        </tr>
+      `;
+    });
+  }
+}
+
+// ✅ FIXED: Added missing declaration
+const sendAllInvites = document.getElementById("send-all-invites");
+
+if (sendAllInvites) {
+
+  sendAllInvites.addEventListener(
+    "click",
+    async () => {
+
+      const shortlisted =
+        JSON.parse(
+          localStorage.getItem(
+            "shortlistedCandidates"
+          ) || "[]"
+        );
+
+      const jobId =
+        localStorage.getItem(
+          "currentJobId"
+        );
+
+      const meetLink =
+        document.getElementById(
+          "meet-link"
+        ).value.trim();
+
+      const scheduledAt =
+        document.getElementById(
+          "scheduled-at"
+        ).value;
+
+      if (!meetLink) {
+        alert("Please enter Google Meet Link");
+        return;
+      }
+
+      if (!scheduledAt) {
+        alert("Please select interview date & time");
+        return;
+      }
+
+      let sent = 0;
+
+      for (const candidate of shortlisted) {
+
+        if (!candidate.candidate_email)
+          continue;
+
+        try {
+
+          await apiRequest(
+            `/jobs/${jobId}/video-invite`,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json",
+                ...authHeaders()
+              },
+
+              body: JSON.stringify({
+
+                candidate_email:
+                  candidate.candidate_email,
+
+                scheduled_at:
+                  scheduledAt,
+
+                meet_link:
+                  meetLink
+
+              }),
+            }
+          );
+
+          sent++;
+
+        } catch (err) {
+
+          console.error(
+            "Invite failed:",
+            candidate.candidate_email,
+            err
+          );
+
+        }
+      }
+
+      alert(
+        `${sent} interview invitation(s) sent successfully.`
+      );
+    }
+  );
+}
+
+const verifyBtn = document.getElementById("verify-documents");
+if (verifyBtn) {
+  verifyBtn.addEventListener("click", async () => {
+    const aadharFile = document.getElementById("aadhar-file").files[0];
+    const panFile = document.getElementById("pan-file").files[0];
+    const marksheet10File = document.getElementById("marksheet10-file").files[0];
+    const marksheet12File = document.getElementById("marksheet12-file").files[0];
+
+    const documentStatus = document.getElementById("document-status");
+    const verificationOutput = document.getElementById("verification-output");
+
+    if (!aadharFile || !panFile || !marksheet10File || !marksheet12File) {
+      alert("Please upload all documents.");
+      return;
+    }
+
+    if (documentStatus) documentStatus.textContent = "Verifying... please wait.";
+    if (verificationOutput) verificationOutput.textContent = "Processing...";
+
+    const formData = new FormData();
+    formData.append("aadhar_number", document.getElementById("aadhar-number").value.trim());
+    formData.append("pan_number", document.getElementById("pan-number").value.trim().toUpperCase());
+    formData.append("aadhar_file", aadharFile);
+    formData.append("pan_file", panFile);
+    formData.append("marksheet_10_file", marksheet10File);
+    formData.append("marksheet_12_file", marksheet12File);
+
+    try {
+      const response = await fetch("/users/documents", {
+        method: "POST",
+        headers: { ...authHeaders() },
+        body: formData,
+      });
+
+      const text = await response.text();
+      console.log("Verification raw response:", text);
+
+      if (!response.ok) {
+        if (documentStatus) documentStatus.textContent = "Verification request failed.";
+        if (verificationOutput) verificationOutput.innerHTML = `<span style="color:red">Error: ${text}</span>`;
+        return;
+      }
+
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        if (documentStatus) documentStatus.textContent = "Unexpected server response.";
+        if (verificationOutput) verificationOutput.innerHTML = `<span style="color:orange">Raw response: ${text}</span>`;
+        return;
+      }
+
+      if (documentStatus) documentStatus.textContent = "Verification complete.";
+
+      if (verificationOutput) {
+        const overallOk = data.overall === "verified" || data.overall === true || data.overall === "true";
+        verificationOutput.innerHTML = `
+          <div><strong>Aadhaar:</strong> ${data.aadhar ?? "N/A"}</div>
+          <div><strong>PAN:</strong> ${data.pan ?? "N/A"}</div>
+          <div style="margin-top:8px;font-size:1.1em;">
+            <strong>Overall:</strong>
+            <span style="color:${overallOk ? "green" : "red"}; font-weight:700;">
+              ${data.overall ?? "N/A"}
+            </span>
+          </div>
+        `;
+      }
+
+    } catch (err) {
+      console.error("Verification error:", err);
+      if (documentStatus) documentStatus.textContent = "Verification failed.";
+      if (verificationOutput) verificationOutput.innerHTML = `<span style="color:red">Error: ${err.message}</span>`;
+    }
+  });
+}

@@ -15,6 +15,9 @@ class Settings(BaseSettings):
     smtp_from: str = ""
 
     gemini_api_key: str = ""
+    openai_api_key: str = ""      # ChatGPT backup
+    claude_api_key: str = ""      # Anthropic Claude backup
+
     frontend_base_url: str = "http://localhost:8000"
 
     class Config:
